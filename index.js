@@ -14,6 +14,17 @@ const realizarVestibular = (nome, cpf) => {
         }
     }
 }
+//essa função é criadora de ação
+const realizarMatricula = (cpf, status) => {
+    //devolve uma ação condizente com o enunciado
+    //Esse JSON que ela devolve é uma ação
+    return {
+        type: 'REALIZAR_MATRICULA',
+        payload: {
+            cpf, status
+        }
+    }
+}
 
 // const capturarDados = async() => {
 //     const resposta = await prompts({
