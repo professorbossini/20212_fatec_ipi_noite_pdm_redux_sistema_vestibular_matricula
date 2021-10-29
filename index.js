@@ -26,6 +26,25 @@ const realizarMatricula = (cpf, status) => {
     }
 }
 
+//essa função é um reducer
+const historicoVestibularReducer = (historicoVestibularAtual = [], acao) => {
+    if (acao.type === 'REALIZAR_VESTIBULAR'){
+        return [...historicoVestibularAtual, acao.payload]
+    }
+    return historicoVestibularAtual
+}
+
+//essa função é um reducer
+const historicoMatriculasReducer = (historicoMatriculasAtual = [], acao) => {
+    if (acao.type === 'REALIZAR_MATRICULA'){
+        return [...historicoMatriculasAtual, acao.payload]
+    }
+    return historicoMatriculasAtual
+}
+
+
+
+
 // const capturarDados = async() => {
 //     const resposta = await prompts({
 //         type: 'number',
