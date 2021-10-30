@@ -100,6 +100,21 @@ const inicio = async () => {
                     }
                     break
                 }
+                case 3: {
+                    const { cpf } = await prompts ({ //devolve {cpf: 12}
+                        type: 'text',
+                        name: 'cpf',
+                        message: 'Digite seu cpf'
+                    })
+                    const aluno = store.getState().historicoMatriculas.find(aluno => aluno.cpf === cpf)
+                    if (aluno) {
+                        console.log(`Seu status é: ${aluno.status}`)
+                    }
+                    else{
+                        console.log('Seu nome não consta na lista de matrículas')
+                    }
+                    break
+                }
             }
         }
         catch (err){
