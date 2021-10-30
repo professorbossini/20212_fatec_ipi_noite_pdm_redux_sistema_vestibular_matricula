@@ -120,6 +120,14 @@ const inicio = async () => {
                     console.log(listaAprovados)
                     break
                 }
+                case 0: {
+                    console.log("Até mais")
+                    break
+                }
+                default:{
+                    console.log("Opção inválida")
+                    break
+                }
             }
         }
         catch (err){
