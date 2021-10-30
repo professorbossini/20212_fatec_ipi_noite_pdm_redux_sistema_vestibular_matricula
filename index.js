@@ -4,6 +4,7 @@ const redux = require ('redux')
 const realizarVestibular = (nome, cpf) => {
     const entre6e10 = Math.random() <= 0.7
     const nota = entre6e10 ? 6 + Math.random() * 4 : Math.random() * 5
+    console.log(`nota: ${nota}`)
     //Esse JSON que ela devolve é uma ação
     return {
         type: 'REALIZAR_VESTIBULAR',
@@ -56,6 +57,59 @@ const todosOsReducers = redux.combineReducers({
 
 const store = redux.createStore(todosOsReducers)
 
+const inicio = async () => {
+    const menu = "1-Realizar vestibular\n2-Realizar matrícula\n3-Visualizar meu status\n4-Visualizar lista de aprovados\n0-Sair"
+    let resposta
+    do{
+        try{
+            resposta = await prompts({
+                type: 'number',
+                name: 'opcao',
+                message: menu
+            })
+            switch (resposta.opcao) {
+                case 1:{
+                    const { cpf } = await prompts ({ //devolve {cpf: 1234}
+                        type: 'text',
+                        name: 'cpf',
+                        message: 'Digite seu cpf'
+                    })
+                    const { nome } = await prompts ({
+                        type: 'text',
+                        name: 'nome',
+                        message: 'Digite seu nome'
+                    })
+                    const acao = realizarVestibular (nome, cpf)
+                    store.dispatch(acao)
+                    break
+                }
+                case 2: {
+                    const { cpf } = await prompts ({ //devolve {cpf: 12}
+                        type: 'text',
+                        name: 'cpf',
+                        message: 'Digite seu cpf'
+                    })
+                    const aprovado = store.getState().historicoVestibular.find(aluno => aluno.cpf === cpf && aluno.nota >= 6)
+                    if (aprovado) {
+                        store.dispatch(realizarMatricula(cpf, 'M'))
+                        console.log('Ok, matriculado')
+                    } 
+                    else{
+                        store.dispatch(realizarMatricula(cpf, 'NM'))
+                        console.log('Infelizmente você não foi aprovado no vestibular ainda.')
+                    }
+                    break
+                }
+            }
+        }
+        catch (err){
+            console.log("Opção inválida")
+        }
+
+    }while (resposta.opcao !== 0)
+}
+
+inicio()
 
 
 
