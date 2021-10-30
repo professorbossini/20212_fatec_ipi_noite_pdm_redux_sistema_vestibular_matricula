@@ -1,5 +1,5 @@
 const prompts = require('prompts');
-
+const redux = require ('redux')
 //Essa função é criadora de ação
 const realizarVestibular = (nome, cpf) => {
     const entre6e10 = Math.random() <= 0.7
@@ -41,6 +41,24 @@ const historicoMatriculasReducer = (historicoMatriculasAtual = [], acao) => {
     }
     return historicoMatriculasAtual
 }
+
+// seu estado é desse jeito aqui:
+/*
+    {
+        historicoVestibular: [],
+        historicoMatriculas: []
+    }
+*/
+const todosOsReducers = redux.combineReducers({
+    historicoVestibular: historicoVestibularReducer,
+    historicoMatriculas: historicoMatriculasReducer
+})
+
+const store = redux.createStore(todosOsReducers)
+
+
+
+
 
 
 
