@@ -115,6 +115,11 @@ const inicio = async () => {
                     }
                     break
                 }
+                case 4: {
+                    const listaAprovados = store.getState().historicoVestibular.filter( aluno => aluno.nota >= 6)
+                    console.log(listaAprovados)
+                    break
+                }
             }
         }
         catch (err){
